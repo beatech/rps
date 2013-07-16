@@ -1,4 +1,2 @@
-# -*- coding: utf-8 -*-
-class Music
+class Music < ActiveRecord::Base
 end
-

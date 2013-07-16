@@ -1,4 +1,2 @@
-# -*- coding: utf-8 -*-
-class Power
+class Power < ActiveRecord::Base
 end
-
