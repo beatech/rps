@@ -130,6 +130,7 @@ class PowersController < ApplicationController
     max_rate = 0
     Music.where(playtype: playtype, level: level.to_s).each do |music|
       score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty]).first
+      next unless score
       if max_rate < score[:rate].to_f
         title = music[:title]
         max_rate = score[:rate].to_f
