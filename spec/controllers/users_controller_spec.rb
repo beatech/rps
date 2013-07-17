@@ -19,5 +19,10 @@ describe UsersController do
     it "should be success" do
       response.should be_success
     end
+
+    it "should NOT create duplicate iidxid user" do
+      xhr :post, :create, iidxid: "1111-1111", djname: "test"
+      User.where(iidxid: "1111-1111").size.should == 1
+    end
   end
 end

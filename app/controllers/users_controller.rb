@@ -12,7 +12,9 @@ class UsersController < ApplicationController
 
   def create
     if params[:iidxid] =~ /[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/
-      User.create(iidxid: params[:iidxid], djname: params[:djname])
+      @user = User.where(iidxid: params[:iidxid]).first
+      @user ||= User.create(iidxid: params[:iidxid], djname: params[:djname])
+      @user.update_attributes(djname: params[:djname])
       render text: "create succeeded"
     else
       render text: "invalid iidxid"
