@@ -2,25 +2,25 @@ class ScoresController < ApplicationController
   def show
     @user = User.where(iidxid: params[:iidxid]).first
     redirect_to root_url if @user == nil
+
     @musics = Hash.new
     ["SP", "DP"].each do |playtype|
-      @musics[playtype] = Hash.new
+      @musics[playtype] = Array.new
       (1..12).each do |level|
         @musics[playtype][level] = Music.where(playtype: playtype, level: level)
-          .map { |music| Score.where(iidxid: params[:iidxid], title: music[:title], playtype: playtype, difficulty: music[:difficulty]) }
-        @musics[playtype][level].sort! { |a, b| b[:rate].to_i <=> a[:rate].to_i }
       end
     end
   end
 
   def update
     begin
+      params[:clear] = "EXH" if params[:clear] == "EH"
       @score = Score.where(
         iidxid: params[:iidxid], title: params[:title], playtype: params[:playtype], difficulty: params[:difficulty]
       ).first
       @score ||= Score.create(
         iidxid: params[:iidxid], title: params[:title], playtype: params[:playtype], difficulty: params[:difficulty],
-        exscore: 0, bp: -1, clear: "F", rate: "0"
+        exscore: 0, bp: "-", clear: "F", rate: "0"
       )
       @score.update_attributes(exscore: params[:exscore], bp: params[:bp], clear: params[:clear])
       render text: "update succeeded"

@@ -1,14 +1,31 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe PowersController do
   describe "GET 'powers/update'" do
     before do
-      User.create(iidxid: "1111-1111", djname: "test")
+      Power.all.each do |power|
+        power.destroy
+      end
+      User.create(iidxid: "2222-2222", djname: "test")
+      Score.create(
+        iidxid: "2222-2222", title: "冥", playtype: "SP", difficulty: "A",
+        exscore: 2000, bp: "100", clear: "EXH", rate: "50.0"
+      )
+      Music.create(
+        title: "冥", level: 12, playtype: "SP", difficulty: "A", notes: 2000
+      )
       xhr :get, :update, iidxid: "1111-1111"
     end
 
     it "should be success" do
       response.should be_success
+    end
+
+    it "should create user's score power" do
+      @power = Power.where(iidxid: "2222-2222", playtype: "SP").first
+      @power.should_not == nil
+      @power.score12.to_i.should > 0
     end
   end
 end
