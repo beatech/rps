@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20130716151228) do
     t.string   "difficulty"
     t.string   "iidxid"
     t.integer  "exscore"
-    t.integer  "bp"
+    t.string   "bp"
     t.string   "rate"
     t.string   "clear"
     t.datetime "created_at"

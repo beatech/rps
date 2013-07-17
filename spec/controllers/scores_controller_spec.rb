@@ -15,11 +15,22 @@ describe ScoresController do
 
   describe "POST 'scores/update'" do
     before do
-      xhr :post, :update, iidxid: "1111-1111", title: "冥", playtype: "SP", difficulty: "A", exscore: "3000", bp: "10", clear: "EH"
+      Score.all.each do |score|
+        score.destroy
+      end
+      xhr :post, :update, iidxid: "1111-1111", title: "冥", playtype: "SP", difficulty: "A", exscore: 3000, bp: 10, clear: "EXH"
     end
 
     it "should be success" do
       response.should be_success
+    end
+
+    it "should create or update the score" do
+      @score = Score.where(iidxid: "1111-1111", title: "冥", playtype: "SP", difficulty: "A").first
+      @score.should_not == nil
+      @score.exscore == 3000
+      @score.bp == 1
+      @score.clear == "EXH"
     end
   end
 end

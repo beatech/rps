@@ -14,15 +14,19 @@ class ScoresController < ApplicationController
   end
 
   def update
-    args = Hash.new
-    [:iidxid, :title, :playtype, :difficulty].each do |symbol|
-      args[symbol] = params[symbol.to_s]
+    begin
+      @score = Score.where(
+        iidxid: params[:iidxid], title: params[:title], playtype: params[:playtype], difficulty: params[:difficulty]
+      ).first
+      @score ||= Score.create(
+        iidxid: params[:iidxid], title: params[:title], playtype: params[:playtype], difficulty: params[:difficulty],
+        exscore: 0, bp: -1, clear: "F", rate: "0"
+      )
+      @score.update_attributes(exscore: params[:exscore], bp: params[:bp], clear: params[:clear])
+      render text: "update succeeded"
+    rescue
+      render text: "failed to update"
     end
-    #@score = Score.new(args)
-    #@score.update(exscore: params["exscore"], bp: params["bp"], clear: params["clear"])
-    #powers_controller = PowersController.new
-    #powers_controller.update(args[:iidxid])
-    render text: "update succeeded"
   end
 
   def update_all_rate

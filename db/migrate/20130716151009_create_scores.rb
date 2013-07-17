@@ -6,7 +6,7 @@ class CreateScores < ActiveRecord::Migration
       t.string :difficulty
       t.string :iidxid
       t.integer :exscore
-      t.integer :bp
+      t.string :bp
       t.string :rate
       t.string :clear
 
