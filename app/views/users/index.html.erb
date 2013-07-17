@@ -52,20 +52,20 @@
           </td>
           <% end %>
 
-          <% power = Power.where(iidxid: user[:iidxid]).first %>
+          <% power = Power.where(iidxid: user[:iidxid], playtype: playtype).first %>
           <% power ||= Hash.new %>
           <% (8..12).each do |level| %>
             <td>
-              <% score_sym = (playtype.downcase + level.to_s + "score").to_sym %>
+              <% score_sym = "score#{level}".to_sym %>
               <% power[score_sym] ||= 0 %>
               <%= "%.2f" % power[score_sym] %>
               <br>
               <% if (8..10).include?(level) %>
-                <% title_sym = (playtype.downcase + level.to_s + "title").to_sym %>
+                <% title_sym = "title#{level}".to_sym %>
                 <%= power[title_sym] %>
               <% else %>
                 <font color="#223399">
-                  <% clear_sym = (playtype.downcase + level.to_s + "clear").to_sym %>
+                  <% clear_sym = "clear#{level}".to_sym %>
                   <% power[clear_sym] ||= 0 %>
                   <% if power[clear_sym] != "Infinity" %>
                     <%= "%.2f" % power[clear_sym] %>
@@ -77,12 +77,12 @@
             </td>
           <% end %>
           <td>
-            <% total_sym = (playtype.downcase + "total").to_sym %>
+            <% total_sym = :score_total %>
             <% power[total_sym] ||= 0 %>
             <%= "%.2f" % power[total_sym] %>
             <br>
             <font color="#223399">
-              <% clear_sym = (playtype.downcase + "cleartotal").to_sym %>
+              <% clear_sym = :clear_total %>
               <% power[clear_sym] ||= 0 %>
               <% if power[clear_sym] != "Infinity" %>
                 <%= "%.2f" % power[clear_sym] %>
