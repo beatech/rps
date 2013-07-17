@@ -6,5 +6,5 @@ valid:
   iidxid: "1111-1111"
   exscore: 3998
   bp: 1
-  rate: 99.9
+  rate: "99.9"
   clear: "EXH"
