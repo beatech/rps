@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20130716151228) do
     t.string   "score_total"
     t.string   "clear_total"
     t.string   "iidxid"
+    t.string   "playtype"
     t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"

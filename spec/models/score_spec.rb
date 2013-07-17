@@ -10,7 +10,7 @@ describe Score do
 
   it "must have :title, :playtype, :difficulty, :iidxid, :exscore, :bp, :rate" do
     [:title, :playtype, :difficulty, :iidxid, :exscore, :bp, :rate].each do |sym|
-      invalid_score = @score
+      invalid_score = @score.dup
       invalid_score[sym] = ""
       invalid_score.should_not be_valid
     end

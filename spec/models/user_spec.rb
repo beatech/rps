@@ -9,7 +9,7 @@ describe User do
 
   it "must have :iidxid, :djname" do
     [:iidxid, :djname].each do |sym|
-      invalid_users = @user
+      invalid_users = @user.dup
       invalid_users[sym] = ""
       invalid_users.should_not be_valid
     end

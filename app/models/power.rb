@@ -13,4 +13,5 @@ class Power < ActiveRecord::Base
   validates :date, :presence => true
   validates :score_total, :presence => true
   validates :clear_total, :presence => true
+  validates :playtype, :presence => true
 end

@@ -14,6 +14,7 @@ class CreatePowers < ActiveRecord::Migration
       t.string :score_total
       t.string :clear_total
       t.string :iidxid
+      t.string :playtype
       t.date :date
 
       t.timestamps

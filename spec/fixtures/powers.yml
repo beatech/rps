@@ -14,3 +14,4 @@ valid:
   date: "2013-01-01"
   score_total: "1.0"
   clear_total: "1.0"
+  playtype: "SP"
