@@ -10,12 +10,12 @@ describe PowersController do
       User.create(iidxid: "2222-2222", djname: "test")
       Score.create(
         iidxid: "2222-2222", title: "冥", playtype: "SP", difficulty: "A",
-        exscore: 2000, bp: "100", clear: "EXH", rate: "50.0"
+        exscore: 3999, bp: "1", clear: "EXH", rate: "99.9"
       )
       Music.create(
         title: "冥", level: 12, playtype: "SP", difficulty: "A", notes: 2000
       )
-      xhr :get, :update, iidxid: "1111-1111"
+      xhr :get, :update, iidxid: "2222-2222"
     end
 
     it "should be success" do

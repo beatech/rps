@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class PowersController < ApplicationController
   def update
-    #update_power(params[:iidxid])
+    update_power(params[:iidxid])
     render text: "update succeeded"
   end
 
@@ -10,30 +10,52 @@ class PowersController < ApplicationController
     hash[:iidxid] = iidxid
     ["SP", "DP"].each do |playtype|
       [8, 9, 10].each do |level|
-        score_sym = (playtype.downcase + level.to_s + "score").to_sym
-        title_sym = (playtype.downcase + level.to_s + "title").to_sym
+        score_sym = "score#{level}".to_sym
+        title_sym = "title#{level}".to_sym
         hash[score_sym], hash[title_sym] = single_score_power(iidxid, playtype, level)
       end
+
       [11, 12].each do |level|
-        score_sym = (playtype.downcase + level.to_s + "score").to_sym
-        hash[score_sym] = total_score_power(iidxid, playtype, level)
-        clear_sym = (playtype.downcase + level.to_s + "clear").to_sym
+        score_sym = "score#{level}".to_sym
+        clear_sym = "clear#{level}".to_sym
         hash[clear_sym] = clear_power(iidxid, playtype, level)
+        hash[score_sym] = total_score_power(iidxid, playtype, level)
       end
-      total_sym = (playtype.downcase + "total").to_sym
-      hash[total_sym] = 0
+
+      score_total = 0
       (8..12).each do |level|
-        score_sym = (playtype.downcase + level.to_s + "score").to_sym
-        hash[total_sym] += hash[score_sym]
+        score_sym = "score#{level}".to_sym
+        score_total += hash[score_sym].to_f
       end
-      cleartotal_sym = (playtype.downcase + "cleartotal").to_sym
-      hash[cleartotal_sym] = 0
+      hash[:score_total] = score_total.to_s
+
+      clear_total = 0
       (11..12).each do |level|
-        clear_sym = (playtype.downcase + level.to_s + "clear").to_sym
-        hash[cleartotal_sym] += hash[clear_sym].to_f
+        clear_sym = "clear#{level}".to_sym
+        clear_total += hash[clear_sym].to_f
       end
+      hash[:clear_total] = clear_total.to_s
+
+      @power = Power.where(iidxid: iidxid, playtype: playtype).first
+      @power ||= Power.create(
+        iidxid: iidxid,
+        playtype: playtype,
+        score8: "0.00",
+        score9: "0.00",
+        score10: "0.00",
+        score11: "0.00",
+        score12: "0.00",
+        title8: "-",
+        title9: "-",
+        title10: "-",
+        clear11: "0.00",
+        clear12: "0.00",
+        date: Date.today,
+        score_total: "0.00",
+        clear_total: "0.00"
+      )
+      @power.update_attributes(hash)
     end
-    #Power.update(hash)
   end
 
   def update_all
@@ -62,7 +84,7 @@ class PowersController < ApplicationController
     lamp_num = 0
     bp_ave = 0
     Music.where(playtype: playtype, level: level.to_s).each do |music|
-      score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty])
+      score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty]).first
       fc_num += 1 if score[:clear] == "FC"
       exh_num += 1 if score[:clear] == "EXH"
       h_num += 1 if score[:clear] == "H"
@@ -100,7 +122,7 @@ class PowersController < ApplicationController
     #   ",EXH_NUM:"+exh_num.to_s+",H_NUM:"+h_num.to_s+",FC_RATE:"+fc_rate.to_s+",EXH_RATE:"+exh_rate.to_s+",H_RATE:"+h_rate.to_s+
     #   ",BP_AVE:"+bp_ave.to_s+",BASE_POINT:"+base_point.to_s+",K:"+k.to_s+",CLEAR_POWER:"+(clear_power).to_s
 
-    clear_power
+    "%.2f" % clear_power
   end
 
   def single_score_power(iidxid, playtype, level)
@@ -121,7 +143,8 @@ class PowersController < ApplicationController
 
     mas_rate = 99.9 if max_rate == 100
     score_power = base * (0.6 ** (100 - max_rate))
-    [score_power, title]
+    score_power_string = "%.2f" % score_power
+    [score_power_string, title]
   end
 
   def total_score_power(iidxid, playtype, level)
@@ -135,7 +158,7 @@ class PowersController < ApplicationController
     aa_num = 0
     rate_sum = 0
     Music.where(playtype: playtype, level: level.to_s).each do |music|
-      score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty])
+      score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty]).first
       if score[:rate].to_f > 0
         score_num += 1
         rate_sum += score[:rate].to_f
@@ -155,6 +178,6 @@ class PowersController < ApplicationController
     else
       score_power = 0
     end
-    score_power
+    "%.2f" % score_power
   end
 end
