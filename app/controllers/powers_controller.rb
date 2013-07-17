@@ -85,6 +85,7 @@ class PowersController < ApplicationController
     bp_ave = 0
     Music.where(playtype: playtype, level: level.to_s).each do |music|
       score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty]).first
+      next unless score
       fc_num += 1 if score[:clear] == "FC"
       exh_num += 1 if score[:clear] == "EXH"
       h_num += 1 if score[:clear] == "H"
@@ -160,6 +161,7 @@ class PowersController < ApplicationController
     rate_sum = 0
     Music.where(playtype: playtype, level: level.to_s).each do |music|
       score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty]).first
+      next unless score
       if score[:rate].to_f > 0
         score_num += 1
         rate_sum += score[:rate].to_f
