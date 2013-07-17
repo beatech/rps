@@ -45,3 +45,5 @@ gem 'therubyracer'
 gem 'less-rails'
 gem 'less-rails-bootstrap'
 gem 'less-rails-bootswatch'
+
+gem 'httparty'
