@@ -23,6 +23,7 @@ class ScoresController < ApplicationController
         exscore: 0, bp: "-", clear: "F", rate: "0"
       )
       @score.update_attributes(exscore: params[:exscore], bp: params[:bp], clear: params[:clear])
+      @score.update_rate
       render text: "update succeeded"
     rescue
       render text: "failed to update"

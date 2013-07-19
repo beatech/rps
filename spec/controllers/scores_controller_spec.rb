@@ -18,6 +18,7 @@ describe ScoresController do
       Score.all.each do |score|
         score.destroy
       end
+      Music.create(level: 12, title: "冥", difficulty: "A", playtype: "SP", notes: 2000)
       xhr :post, :update, iidxid: "1111-1111", title: "冥", playtype: "SP", difficulty: "A", exscore: 3000, bp: 10, clear: "EXH"
     end
 
@@ -31,6 +32,11 @@ describe ScoresController do
       @score.exscore == 3000
       @score.bp == 1
       @score.clear == "EXH"
+    end
+
+    it "should change rate" do
+      @score = Score.where(iidxid: "1111-1111", title: "冥", playtype: "SP", difficulty: "A").first
+      (@score.rate.to_f * 100).to_i.should > 0
     end
   end
 end
