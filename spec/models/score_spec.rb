@@ -21,7 +21,7 @@ describe Score do
       Music.create(level: 12, title: "冥", difficulty: "A", playtype: "SP", notes: 2000)
       @score = Score.create(iidxid: "1111-1111", title: "冥", playtype: "SP", difficulty: "A", exscore: 3000, bp: 10, clear: "EXH", rate: "0")
       @score.update_rate
-      (@score.rate.to_f * 100).to_i.should > 0
+      (@score.rate.to_f).to_i.should > 50
     end
   end
 end

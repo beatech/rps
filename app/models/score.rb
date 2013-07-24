@@ -10,7 +10,7 @@ class Score < ActiveRecord::Base
   def update_rate
     @music = Music.where(title: self.title, playtype: self.playtype, difficulty: self.difficulty).first
     if @music
-      score_rate = self.exscore.to_f / (@music.notes * 2)
+      score_rate = (100 * self.exscore).to_f / (@music.notes * 2)
       self.rate = "%.2f" % score_rate
       self.save
     end
