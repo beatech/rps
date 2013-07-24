@@ -48,7 +48,12 @@
               </td>
               <% end %>
 
-              <% score = Score.where(iidxid: @user[:iidxid], playtype: playtype, title: music[:title], difficulty: music[:difficulty]).first %>
+              <% score = nil %>
+              <% begin %>
+              <%   score = @scores[playtype][music[:title]][music[:difficulty]] %>
+              <% rescue %>
+              <% end %>
+
               <% if score %>
                 <% [:clear, :exscore, :rate, :bp].each do |symbol| %>
                 <td>

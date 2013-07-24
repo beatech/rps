@@ -3,12 +3,26 @@ class ScoresController < ApplicationController
     @user = User.where(iidxid: params[:iidxid]).first
     redirect_to root_url if @user == nil
 
+    music_datas = Music.all
     @musics = Hash.new
-    ["SP", "DP"].each do |playtype|
-      @musics[playtype] = Array.new
-      (1..12).each do |level|
-        @musics[playtype][level] = Music.where(playtype: playtype, level: level)
-      end
+    music_datas.each do |music_data|
+      @musics[music_data.playtype] = Array.new unless @musics[music_data.playtype]
+      @musics[music_data.playtype][music_data.level] = Array.new unless @musics[music_data.playtype][music_data.level]
+      @musics[music_data.playtype][music_data.level].push(music_data)
+    end
+    # ["SP", "DP"].each do |playtype|
+    #   @musics[playtype] = Array.new
+    #   (1..12).each do |level|
+    #     @musics[playtype][level] = Music.where(playtype: playtype, level: level)
+    #   end
+    # end
+
+    score_datas = Score.where(iidxid: @user[:iidxid])
+    @scores = Hash.new
+    score_datas.each do |score_data|
+      @scores[score_data.playtype] = Hash.new unless @scores[score_data.playtype]
+      @scores[score_data.playtype][score_data.title] = Hash.new unless @scores[score_data.playtype][score_data.title]
+      @scores[score_data.playtype][score_data.title][score_data.difficulty] = score_data
     end
   end
 
