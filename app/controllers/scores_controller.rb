@@ -1,7 +1,7 @@
 class ScoresController < ApplicationController
   def show
     @user = User.where(iidxid: params[:iidxid]).first
-    redirect_to root_url if @user == nil
+    redirect_to root_url unless @user
 
     music_datas = Music.all
     @musics = Hash.new
@@ -10,12 +10,6 @@ class ScoresController < ApplicationController
       @musics[music_data.playtype][music_data.level] = Array.new unless @musics[music_data.playtype][music_data.level]
       @musics[music_data.playtype][music_data.level].push(music_data)
     end
-    # ["SP", "DP"].each do |playtype|
-    #   @musics[playtype] = Array.new
-    #   (1..12).each do |level|
-    #     @musics[playtype][level] = Music.where(playtype: playtype, level: level)
-    #   end
-    # end
 
     score_datas = Score.where(iidxid: @user[:iidxid])
     @scores = Hash.new
