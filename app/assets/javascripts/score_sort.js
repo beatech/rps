@@ -10,6 +10,18 @@ function integerSort(position, tableId) {
   );
 }
 
+function bpSort(position, tableId) {
+  $("#" + tableId + " tbody").html(
+    $("#" + tableId + " tbody tr").sort(function(a, b) {
+      var a_value = parseInt(valueOfTr($(a), position));
+      var b_value = parseInt(valueOfTr($(b), position));
+      if (isNaN(a_value)) a_value = 10000;
+      if (isNaN(b_value)) b_value = 10000;
+      return a_value > b_value ? 1 : -1;
+    })
+  );
+}
+
 function floatSort(position, tableId) {
   $("#" + tableId + " tbody").html(
     $("#" + tableId + " tbody tr").sort(function(a, b) {
