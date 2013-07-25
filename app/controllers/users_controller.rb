@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def index
     @users = User.all
+    @powers = Power.all
   end
 
   def create

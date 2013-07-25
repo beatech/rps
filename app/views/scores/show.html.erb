@@ -33,12 +33,24 @@
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>Difficulty</th>
-              <th>Title</th>
-              <th>Clear</th>
-              <th>Score</th>
-              <th>Rate</th>
-              <th>BP</th>
+              <th>
+                <a href="javascript:void(0);" onclick="alphabetSort(0, '<%= playtype + level.to_s %>');">Difficulty</a>
+              </th>
+              <th>
+                <a href="javascript:void(0);" onclick="alphabetSort(1, '<%= playtype + level.to_s %>');">Title</a>
+              </th>
+              <th>
+                <a href="javascript:void(0);" onclick="clearSort(2, '<%= playtype + level.to_s %>');">Clear</a>
+              </th>
+              <th>
+                <a href="javascript:void(0);" onclick="integerSort(3, '<%= playtype + level.to_s %>');">Score</a>
+              </th>
+              <th>
+                <a href="javascript:void(0);" onclick="floatSort(4, '<%= playtype + level.to_s %>');">Rate</a>
+              </th>
+              <th>
+                <a href="javascript:void(0);" onclick="integerSort(5, '<%= playtype + level.to_s %>');">BP</a>
+              </th>
             </tr>
           </thead>
           <tbody>

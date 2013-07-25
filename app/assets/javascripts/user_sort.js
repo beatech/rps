@@ -52,4 +52,6 @@ function musicOfTr(tr, position) {
   return tr.children().eq(position).children().filter(".clear").html();
 }
 
-scoreSort(7);
+$(window).load(function() {
+	scoreSort(7);
+});
