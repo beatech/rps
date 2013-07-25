@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'user_sort' %>
+
 <h1>RPS</h1>
 
 <p>
@@ -33,9 +35,21 @@
           <th>DJNAME</th>
           <th>IIDX ID</th>
           <% (8..12).each do |level| %>
-            <th>☆<%= level %></th>
+            <th>
+              ☆<%= level %><br>
+              <a href="javascript:void(0);" onclick="scoreSort(<%= level - 6 %>);">Score</a><br>
+              <% if level > 10 %>
+                <a href="javascript:void(0);" onclick="clearSort(<%= level - 6 %>);">Clear</a>
+              <% else %>
+                <a href="javascript:void(0);" onclick="musicSort(<%= level - 6 %>);">Music</a>
+              <% end %>
+            </th>
           <% end %>
-          <th>総合</th>
+          <th>
+            総合<br>
+            <a href="javascript:void(0);" onclick="scoreSort(7);">Score</a><br>
+            <a href="javascript:void(0);" onclick="clearSort(7);">Clear</a>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -43,7 +57,7 @@
         <% next unless user[:iidxid] =~ /[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/%>
         <tr>
           <% [:djname, :iidxid].each do |symbol| %>
-          <td>
+          <td style="white-space:nowrap;">
             <% if symbol == :djname %>
               <a href ="<%= root_url + 'scores/' + user[:iidxid] %>"><%= user[symbol] %></a>
             <% else %>
@@ -56,40 +70,48 @@
           <% power ||= Hash.new %>
           <% (8..12).each do |level| %>
             <td>
-              <% score_sym = "score#{level}".to_sym %>
-              <% power[score_sym] ||= 0 %>
-              <%= "%.2f" % power[score_sym] %>
+              <span class="score">
+                <% score_sym = "score#{level}".to_sym %>
+                <% power[score_sym] ||= 0 %>
+                <%= "%.2f" % power[score_sym] %>
+              </span>
               <br>
-              <% if (8..10).include?(level) %>
-                <% title_sym = "title#{level}".to_sym %>
-                <%= power[title_sym] %>
-              <% else %>
-                <font color="#223399">
-                  <% clear_sym = "clear#{level}".to_sym %>
-                  <% power[clear_sym] ||= 0 %>
-                  <% if power[clear_sym] != "Infinity" %>
-                    <%= "%.2f" % power[clear_sym] %>
-                  <% else %>
-                    Infinity
-                  <% end %>
-                </font>
-              <% end %>
+              <span class="clear">
+                <% if (8..10).include?(level) %>
+                  <% title_sym = "title#{level}".to_sym %>
+                  <%= power[title_sym] %>
+                <% else %>
+                  <font color="#223399">
+                    <% clear_sym = "clear#{level}".to_sym %>
+                    <% power[clear_sym] ||= 0 %>
+                    <% if power[clear_sym] != "Infinity" %>
+                      <%= "%.2f" % power[clear_sym] %>
+                    <% else %>
+                      Infinity
+                    <% end %>
+                  </font>
+                <% end %>
+              </span>
             </td>
           <% end %>
           <td>
-            <% total_sym = :score_total %>
-            <% power[total_sym] ||= 0 %>
-            <%= "%.2f" % power[total_sym] %>
+            <span class="score">
+              <% total_sym = :score_total %>
+              <% power[total_sym] ||= 0 %>
+              <%= "%.2f" % power[total_sym] %>
+            </span>
             <br>
-            <font color="#223399">
-              <% clear_sym = :clear_total %>
-              <% power[clear_sym] ||= 0 %>
-              <% if power[clear_sym] != "Infinity" %>
+            <span class="clear">
+              <font color="#223399">
+                <% clear_sym = :clear_total %>
+                <% power[clear_sym] ||= 0 %>
+                <% if power[clear_sym] != "Infinity" %>
                 <%= "%.2f" % power[clear_sym] %>
-              <% else %>
+                <% else %>
                 Infinity
-              <% end %>
-            </font>
+                <% end %>
+              </font>
+            </span>
           </td>
         </tr>
         <% end %>

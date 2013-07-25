@@ -83,8 +83,10 @@ class PowersController < ApplicationController
     score_num = 0
     lamp_num = 0
     bp_ave = 0
+
+    scores = Score.where(iidxid: iidxid)
     Music.where(playtype: playtype, level: level.to_s).each do |music|
-      score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty]).first
+      score = scores.select{|x| x.title == music[:title] && x.playtype == playtype && x.difficulty == music[:difficulty] }.first
       next unless score
       fc_num += 1 if score[:clear] == "FC"
       exh_num += 1 if score[:clear] == "EXH"
@@ -113,15 +115,14 @@ class PowersController < ApplicationController
       clear_power = 0
     end
 
-    # catch underflow
-    if clear_power.to_i > 100000
+    # catch overflow
+    begin
+      if clear_power.to_i > 100000
+        clear_power = 0
+      end
+    rescue
       clear_power = 0
     end
-
-    # For debug
-    # raise "IIDXID:"+iidxid+",SCORE_NUM:"+score_num.to_s+",LAMP_NUM:"+lamp_num.to_s+",FC_NUM:"+fc_num.to_s+
-    #   ",EXH_NUM:"+exh_num.to_s+",H_NUM:"+h_num.to_s+",FC_RATE:"+fc_rate.to_s+",EXH_RATE:"+exh_rate.to_s+",H_RATE:"+h_rate.to_s+
-    #   ",BP_AVE:"+bp_ave.to_s+",BASE_POINT:"+base_point.to_s+",K:"+k.to_s+",CLEAR_POWER:"+(clear_power).to_s
 
     "%.2f" % clear_power
   end
@@ -129,8 +130,10 @@ class PowersController < ApplicationController
   def single_score_power(iidxid, playtype, level)
     title = "-"
     max_rate = 0
+    scores = Score.where(iidxid: iidxid)
     Music.where(playtype: playtype, level: level.to_s).each do |music|
-      score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty]).first
+      #score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty]).first
+      score = scores.select{|x| x.title == music[:title] && x.playtype == playtype && x.difficulty == music[:difficulty] }.first
       next unless score
       if max_rate < score[:rate].to_f
         title = music[:title]
@@ -159,8 +162,9 @@ class PowersController < ApplicationController
     aaa_num = 0
     aa_num = 0
     rate_sum = 0
+    scores = Score.where(iidxid: iidxid)
     Music.where(playtype: playtype, level: level.to_s).each do |music|
-      score = Score.where(iidxid: iidxid, title: music[:title], playtype: playtype, difficulty: music[:difficulty]).first
+      score = scores.select{|x| x.title == music[:title] && x.playtype == playtype && x.difficulty == music[:difficulty] }.first
       next unless score
       if score[:rate].to_f > 0
         score_num += 1
