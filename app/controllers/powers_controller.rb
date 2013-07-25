@@ -109,7 +109,9 @@ class PowersController < ApplicationController
         when 12 then (1.1 + 1.0/6) - ((5**(bp_ave / 100)) / 6)
         end
     base_point = base * (fc_rate + exh_rate + h_rate)**2 * 5**((fc_rate + exh_rate)**2) * 5**(fc_rate**2)
-    if base_point > 0
+
+    # catch underflow
+    if (base_point * 100).to_i > 100
       clear_power = base_point**k
     else
       clear_power = 0

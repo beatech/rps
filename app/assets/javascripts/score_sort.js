@@ -59,10 +59,6 @@ function valueOfTr(tr, position) {
   return tr.children().eq(position).html();
 }
 
-function musicOfTr(tr, position) {
-  return tr.children().eq(position).children().filter(".clear").html();
-}
-
 $(window).load(function() {
   ;
 });

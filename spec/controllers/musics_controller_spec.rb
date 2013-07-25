@@ -11,4 +11,14 @@ describe MusicsController do
       response.should be_success
     end
   end
+
+  describe "GET 'musics/diff'" do
+    before do
+      xhr :get, :diff, iidxid: "1111-1111"
+    end
+
+    it "should be success" do
+      response.should be_success
+    end
+  end
 end

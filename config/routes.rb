@@ -9,4 +9,5 @@ Rps::Application.routes.draw do
   get  "powers/update/:iidxid"  => "powers#update", as: :update_powers
 
   get  "musics"         => "musics#index",  as: :musics
+  get  "musics/:iidxid" => "musics#diff",   as: :musics_diff
 end

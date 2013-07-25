@@ -113,4 +113,30 @@ class MusicsController < ApplicationController
   def get(args)
     self.class.get(args)
   end
+
+  def diff
+    @djname = User.where(iidxid: params[:iidxid]).first.djname
+    musics = Music.all
+    scores = Score.where(iidxid: params[:iidxid])
+
+    @nodatas = Array.new
+    scores.each do |score|
+      next if has_music?(@nodatas, score)
+      @nodatas.push(score) if has_music?(musics, score) == false
+    end
+
+    @noplays = Array.new
+    musics.each do |music|
+      ;
+    end
+  end
+
+  def has_music?(musics, score)
+    musics.each do |music|
+      if music.title == score.title && music.playtype == score.playtype && music.difficulty == score.difficulty
+        return true
+      end
+    end
+    false
+  end
 end
