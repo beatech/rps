@@ -62,6 +62,7 @@ class PowersController < ApplicationController
     @users = User.all
     @users.each do |user|
       update_power(user[:iidxid])
+      puts "Completed: #{user[:iidxid]}"
     end
     render text: "update succeeded"
   end
