@@ -127,11 +127,11 @@ class PowersController < ApplicationController
     end
 
     # For debug
-    if level == 11
-      raise "LEVEL:"+level.to_s+"\n,IIDXID:"+iidxid+",\nSCORE_NUM:"+score_num.to_s+",\nLAMP_NUM:"+lamp_num.to_s+",\nFC_NUM:"+fc_num.to_s+
-      "\n,EXH_NUM:"+exh_num.to_s+"\n,H_NUM:"+h_num.to_s+"\n,FC_RATE:"+fc_rate.to_s+"\n,EXH_RATE:"+exh_rate.to_s+"\n,H_RATE:"+h_rate.to_s+
-      "\n,BP_AVE:"+bp_ave.to_s+"\n,BASE_POINT:"+base_point.to_s+"\n,K:"+k.to_s+"\n,CLEAR_POWER:"+("%.2f" % clear_power)
-    end
+    # if level == 11
+    #   raise "LEVEL:"+level.to_s+"\n,IIDXID:"+iidxid+",\nSCORE_NUM:"+score_num.to_s+",\nLAMP_NUM:"+lamp_num.to_s+",\nFC_NUM:"+fc_num.to_s+
+    #   "\n,EXH_NUM:"+exh_num.to_s+"\n,H_NUM:"+h_num.to_s+"\n,FC_RATE:"+fc_rate.to_s+"\n,EXH_RATE:"+exh_rate.to_s+"\n,H_RATE:"+h_rate.to_s+
+    #   "\n,BP_AVE:"+bp_ave.to_s+"\n,BASE_POINT:"+base_point.to_s+"\n,K:"+k.to_s+"\n,CLEAR_POWER:"+("%.2f" % clear_power)
+    # end
 
 
     "%.2f" % clear_power
