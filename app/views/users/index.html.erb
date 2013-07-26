@@ -38,18 +38,18 @@
           <% (8..12).each do |level| %>
             <th>
               ☆<%= level %><br>
-              <a href="javascript:void(0);" onclick="scoreSort(<%= level - 6 %>);">Score</a><br>
+              <a href="javascript:void(0);" onclick="scoreSort(<%= level - 5 %>);">Score</a><br>
               <% if level > 10 %>
-                <a href="javascript:void(0);" onclick="clearSort(<%= level - 6 %>);">Clear</a>
+                <a href="javascript:void(0);" onclick="clearSort(<%= level - 5 %>);">Clear</a>
               <% else %>
-                <a href="javascript:void(0);" onclick="musicSort(<%= level - 6 %>);">Music</a>
+                <a href="javascript:void(0);" onclick="musicSort(<%= level - 5 %>);">Music</a>
               <% end %>
             </th>
           <% end %>
           <th>
             総合<br>
-            <a href="javascript:void(0);" onclick="scoreSort(7);">Score</a><br>
-            <a href="javascript:void(0);" onclick="clearSort(7);">Clear</a>
+            <a href="javascript:void(0);" onclick="scoreSort(8);">Score</a><br>
+            <a href="javascript:void(0);" onclick="clearSort(8);">Clear</a>
           </th>
         </tr>
       </thead>
