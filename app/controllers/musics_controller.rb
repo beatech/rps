@@ -13,6 +13,18 @@ class MusicsController < ApplicationController
     end
   end
 
+  def edit
+    @music = Music.find(params[:id])
+  end
+
+  def update
+    @music = Music.find(params[:music][:id])
+    @music.title = params[:music][:title]
+    @music.notes = params[:music][:notes]
+    @music.save
+    redirect_to root_url + 'musics'
+  end
+
   def update_music_data
     music_list = textage_music_list
     music_list.each do |music|

@@ -1,13 +1,16 @@
 Rps::Application.routes.draw do
   root to: "users#index"
 
-  post "users/create"   => "users#create",  as: :create_user
+  post  "users/create"       => "users#create"
 
-  get  "scores/:iidxid" => "scores#show",   as: :show_scores
-  post "scores/update"  => "scores#update", as: :scores_update
+  get   "scores/:iidxid"     => "scores#show"
+  get   "scores/all/:iidxid" => "scores#show_all"
+  post  "scores/update"      => "scores#update"
 
-  get  "powers/update/:iidxid"  => "powers#update", as: :update_powers
+  get   "powers/update/:iidxid"  => "powers#update"
 
-  get  "musics"         => "musics#index",  as: :musics
-  get  "musics/:iidxid" => "musics#diff",   as: :musics_diff
+  get   "musics"          => "musics#index"
+  get   "musics/edit/:id" => "musics#edit"
+  get   "musics/:iidxid"  => "musics#diff"
+  patch "musics/update"   => "musics#update"
 end

@@ -37,6 +37,7 @@
               <th>Difficulty</th>
               <th>Title</th>
               <th>Notes</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -47,6 +48,9 @@
                 <%= music[symbol] %>
               </td>
               <% end %>
+              <td>
+                <%= link_to "編集", root_url + 'musics/edit/' + music.id.to_s %>
+              </td>
             </tr>
             <% end %>
           </tbody>

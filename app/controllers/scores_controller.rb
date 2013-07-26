@@ -1,6 +1,6 @@
 class ScoresController < ApplicationController
   def show
-    @user = User.where(iidxid: params[:iidxid]).first
+    @user = User.find_by_iidxid(params[:iidxid])
     redirect_to root_url unless @user
 
     music_datas = Music.all
@@ -18,6 +18,11 @@ class ScoresController < ApplicationController
       @scores[score_data.playtype][score_data.title] = Hash.new unless @scores[score_data.playtype][score_data.title]
       @scores[score_data.playtype][score_data.title][score_data.difficulty] = score_data
     end
+  end
+
+  def show_all
+    @user = User.find_by_iidxid(params[:iidxid])
+    @scores = Score.where(iidxid: @user[:iidxid])
   end
 
   def update

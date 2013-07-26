@@ -1,0 +1,47 @@
+<p><a href="<%= root_url %>">ホームに戻る</a></p>
+<h1>DJ <%= @user[:djname] %></h1>
+
+<ul class="nav nav-pills">
+  <li class="active"><a href="#SP" data-toggle="tab">Single Play</a></li>
+  <li><a href="#DP" data-toggle="tab">Double Play</a></li>
+</ul>
+<div class="tab-content">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>
+          Difficulty
+        </th>
+        <th>
+          Title
+        </th>
+        <th>
+          Clear
+        </th>
+        <th>
+          Score
+        </th>
+        <th>
+          Rate
+        </th>
+        <th>
+          BP
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @scores.each do |score| %>
+      <tr>
+        <td>
+          <%= score[:playtype] + score[:difficulty] %>
+        </td>
+        <% [:title, :clear, :exscore, :rate, :bp].each do |symbol| %>
+        <td>
+          <%= score[symbol] %>
+        </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
