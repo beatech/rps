@@ -32,6 +32,7 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
+          <th>No</th>
           <th>DJNAME</th>
           <th>IIDX ID</th>
           <% (8..12).each do |level| %>
@@ -53,9 +54,12 @@
         </tr>
       </thead>
       <tbody>
-        <% @users.each do |user| %>
+        <% @users.each_with_index do |user, idx| %>
         <% next unless user[:iidxid] =~ /[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/%>
         <tr>
+          <td>
+            <%= idx + 1 %>
+          </td>
           <% [:djname, :iidxid].each do |symbol| %>
           <td style="white-space:nowrap;">
             <% if symbol == :djname %>
