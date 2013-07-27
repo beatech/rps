@@ -13,8 +13,27 @@ class MusicsController < ApplicationController
     end
   end
 
+  def new
+    @music = Music.new
+  end
+
   def edit
     @music = Music.find(params[:id])
+  end
+
+  def create
+    @music = Music.new
+    [:title, :playtype, :difficulty, :level, :notes].each do |sym|
+      @music[sym] = params[:music][sym]
+    end
+    @music.save
+    redirect_to root_url + 'musics'
+  end
+
+  def destroy
+    @music = Music.find(params[:id])
+    @music.destroy
+    redirect_to root_url + 'musics'
   end
 
   def update

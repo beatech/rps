@@ -1,0 +1,40 @@
+<%= link_to "曲一覧に戻る", root_url + 'musics' %>
+<br>
+
+<h1>New Music Data</h1>
+
+<%= form_for(@music, url: {action: :create}) do |f| %>
+  <div class="field">
+    <strong>曲名</strong>
+    <br>
+    <%= f.text_field :title, {class: "span8"} %>
+  </div>
+  <br>
+  <div class="field">
+    <strong>SP or DP</strong>
+    <br>
+    <%= f.text_field :playtype %>
+  </div>
+  <br>
+    <div class="field">
+    <strong>譜面難易度(A, H, N)</strong>
+    <br>
+    <%= f.text_field :difficulty %>
+  </div>
+  <br>
+  <div class="field">
+    <strong>レベル(1〜12)</strong>
+    <br>
+    <%= f.number_field :level %>
+  </div>
+  <br>
+  <div class="field">
+    <strong>ノーツ数</strong>
+    <br>
+    <%= f.number_field :notes %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

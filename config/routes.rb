@@ -9,8 +9,11 @@ Rps::Application.routes.draw do
 
   get   "powers/update/:iidxid"  => "powers#update"
 
-  get   "musics"          => "musics#index"
-  get   "musics/edit/:id" => "musics#edit"
-  get   "musics/:iidxid"  => "musics#diff"
-  patch "musics/update"   => "musics#update"
+  get   "musics"             => "musics#index"
+  get   "musics/new"         => "musics#new"
+  get   "musics/edit/:id"    => "musics#edit"
+  get   "musics/:iidxid"     => "musics#diff"
+  post  "musics/create"      => "musics#create"
+  patch "musics/update"      => "musics#update"
+  get   "musics/destroy/:id" => "musics#destroy"
 end
