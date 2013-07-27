@@ -36,7 +36,7 @@ function musicSort(position) {
     $("#DP tbody tr").sort(function(a, b) {
       return musicOfTr($(a), position) > musicOfTr($(b), position) ? -1 : 1;
     })
-  );  
+  );
   refreshRanking();
 }
 
@@ -67,5 +67,5 @@ function musicOfTr(tr, position) {
 }
 
 $(window).load(function() {
-	scoreSort(7);
+	scoreSort(8);
 });
