@@ -11,6 +11,10 @@ class MusicsController < ApplicationController
         @musics[playtype][level] = Music.where(playtype: playtype, level: level)
       end
     end
+    respond_to do |format|
+      format.html
+      format.json { render json: Music.all }
+    end
   end
 
   def new

@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 class PowersController < ApplicationController
+  def index
+    respond_to do |format|
+      format.html
+      format.json { render json: Power.all }
+    end
+  end
+
   def update
     update_power(params[:iidxid])
     render text: "update succeeded"

@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @powers = Power.all
+    respond_to do |format|
+      format.html
+      format.json { render json: User.all }
+    end
   end
 
   def create

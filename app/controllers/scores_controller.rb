@@ -1,4 +1,11 @@
 class ScoresController < ApplicationController
+  def index
+    respond_to do |format|
+      format.html
+      format.json { render json: Score.all }
+    end
+  end
+
   def show
     @user = User.find_by_iidxid(params[:iidxid])
     redirect_to root_url unless @user
