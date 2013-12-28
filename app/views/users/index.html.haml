@@ -1,40 +1,37 @@
 = javascript_include_tag 'user_sort'
+
 %h1 RPS
+%p RPSへようこそ！
 %p
-  RPSへようこそ！
-  %br/
   beatmaniaIIDX tricoroの☆8〜☆12のスコアからスコア力、☆11〜☆12のランプ状況からクリア力を総合的に判断し、数値化するサービスを提供しています。
-  %br/
   ☆8〜☆10に表示されている曲名が各レベルで最も高いスコアレートの曲で、その上の数値がそこから算出した単発スコア力です。
-  %br/
+%p
   ☆11,☆12,総合の上段が各レベルスコア力、下段青文字がクリア力になります。
-  %br/
-  %br/
   ご利用になるためには以下のブラウザ拡張をインストールしてください。
-  %br/
-  %br/
-  %a{:href => "#{root_url}IIDXScoreSenderForRPS.xpi"} Firefox用スコア送信ツール
+%p
+  = link_to "#{root_url}IIDXScoreSenderForRPS.xpi" do
+    Firefox用スコア送信ツール
   (11/6 更新)
-  %br/
-  %a{:href => "https://chrome.google.com/webstore/detail/iidx-score-sender-for-rps/fgnnhlnlfgmadhlbjblmkihibfioppji?hl=ja&gl=JP"} Chrome用スコア送信ツール
+%p
+  = link_to 'https://chrome.google.com/webstore/detail/iidx-score-sender-for-rps/fgnnhlnlfgmadhlbjblmkihibfioppji?hl=ja&gl=JP' do
+    Chrome用スコア送信ツール
   (11/6 更新)
-  %br/
-  %br/
+
+%p
   e-amusement GATEにログインしてtricoroのページ上部に表示されるボタンからスコアを送信してください。(課金が必要です。)
-  %br/
+%p
   なお、本サービスおよびスコア送信ツールを利用して発生したいかなる損害も当方は責任を負わないものとします。
-  %br/
-  %br/
+
 %h2 DJ LIST
 %ul.nav.nav-pills
   %li.active
-    %a{"data-toggle" => "tab", :href => "#SP"} Single Play
+    = link_to 'Single Play', '#SP', data: { toggle: 'tab' }
   %li
-    %a{"data-toggle" => "tab", :href => "#DP"} Double Play
+    = link_to 'Dobule Play', '#DP', data: { toggle: 'tab' }
+
 .tab-content
-  - ["SP", "DP"].each do |playtype|
-    %div{:class => tab_class(playtype), :id => playtype}
-      / Start of table
+  - ['SP', 'DP'].each do |playtype|
+    %div{ class: tab_class(playtype), id: playtype}
       %table.table.table-bordered.table-striped
         %thead
           %tr
@@ -45,18 +42,18 @@
               %th
                 ☆#{level}
                 %br/
-                %a{:href => "javascript:void(0);", :onclick => "scoreSort(#{level - 5});"} Score
+                %a{href: 'javascript:void(0);', onclick: "scoreSort(#{level - 5});"} Score
                 %br/
                 - if level > 10
-                  %a{:href => "javascript:void(0);", :onclick => "clearSort(#{level - 5});"} Clear
+                  %a{href: 'javascript:void(0);', onclick: "clearSort(#{level - 5});"} Clear
                 - else
-                  %a{:href => "javascript:void(0);", :onclick => "musicSort(#{level - 5});"} Music
+                  %a{href: 'javascript:void(0);', onclick: "musicSort(#{level - 5});"} Music
             %th
               総合
               %br/
-              %a{:href => "javascript:void(0);", :onclick => "scoreSort(8);"} Score
+              %a{href: 'javascript:void(0);', onclick: 'scoreSort(8);'} Score
               %br/
-              %a{:href => "javascript:void(0);", :onclick => "clearSort(8);"} Clear
+              %a{href: 'javascript:void(0);', onclick: 'clearSort(8);'} Clear
         %tbody
           - @users.each_with_index do |user, idx|
             - next unless user[:iidxid] =~ /[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]/
@@ -64,9 +61,9 @@
               %td
                 = idx + 1
               - [:djname, :iidxid].each do |symbol|
-                %td{:style => "white-space:nowrap;"}
+                %td{style: 'white-space:nowrap;'}
                   - if symbol == :djname
-                    %a{:href => root_url + 'scores/' + user[:iidxid]}= user[symbol]
+                    %a{href: root_url + 'scores/' + user[:iidxid]}= user[symbol]
                   - else
                     = user[symbol]
               - power = @powers.select{|x| x.iidxid == user[:iidxid] && x.playtype == playtype}.first
@@ -76,14 +73,14 @@
                   %span.score
                     - score_sym = "score#{level}".to_sym
                     - power[score_sym] ||= 0
-                    = "%.2f" % power[score_sym]
+                    = '%.2f' % power[score_sym]
                   %br/
                   %span.clear
                     - if (8..10).include?(level)
                       - title_sym = "title#{level}".to_sym
                       = power[title_sym]
                     - else
-                      %font{:color => "#223399"}
+                      %font{color: "#223399"}
                         - clear_sym = "clear#{level}".to_sym
                         - power[clear_sym] ||= 0
                         - if power[clear_sym] != "Infinity"
@@ -97,11 +94,10 @@
                   = "%.2f" % power[total_sym]
                 %br/
                 %span.clear
-                  %font{:color => "#223399"}
+                  %font{color: "#223399"}
                     - clear_sym = :clear_total
                     - power[clear_sym] ||= 0
                     - if power[clear_sym] != "Infinity"
                       = "%.2f" % power[clear_sym]
                     - else
                       Infinity
-      / End of table
