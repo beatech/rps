@@ -1,0 +1,33 @@
+%p
+  %a{:href => root_url} ホームに戻る
+%h1
+  DJ #{@user[:djname]}
+%ul.nav.nav-pills
+  %li.active
+    %a{"data-toggle" => "tab", :href => "#SP"} Single Play
+  %li
+    %a{"data-toggle" => "tab", :href => "#DP"} Double Play
+.tab-content
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th
+          Difficulty
+        %th
+          Title
+        %th
+          Clear
+        %th
+          Score
+        %th
+          Rate
+        %th
+          BP
+    %tbody
+      - @scores.each do |score|
+        %tr
+          %td
+            = score[:playtype] + score[:difficulty]
+          - [:title, :clear, :exscore, :rate, :bp].each do |symbol|
+            %td
+              = score[symbol]

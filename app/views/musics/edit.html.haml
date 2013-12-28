@@ -1,0 +1,21 @@
+= link_to "曲一覧に戻る", root_url + 'musics'
+%br/
+%h1 Edit Music Data
+%h3
+  Music:
+  \#{@music.title}
+  \#{@music.playtype + @music.difficulty}
+= form_for(@music, url: {action: :update}) do |f|
+  .field
+    %strong 曲名
+    %br/
+    = f.text_field :title, {class: "span8"}
+  %br/
+  .field
+    %strong ノーツ数
+    %br/
+    = f.number_field :notes
+  %br/
+  = f.hidden_field :id
+  .actions
+    = f.submit

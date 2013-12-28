@@ -41,6 +41,7 @@ gem 'rspec'
 gem 'rspec-rails'
 
 gem 'therubyracer'
+gem 'haml'
 gem 'less-rails'
 gem 'less-rails-bootstrap'
 gem 'less-rails-bootswatch'

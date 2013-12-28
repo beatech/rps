@@ -1,0 +1,31 @@
+= link_to "曲一覧に戻る", root_url + 'musics'
+%br/
+%h1 New Music Data
+= form_for(@music, url: {action: :create}) do |f|
+  .field
+    %strong 曲名
+    %br/
+    = f.text_field :title, {class: "span8"}
+  %br/
+  .field
+    %strong SP or DP
+    %br/
+    = f.text_field :playtype
+  %br/
+  .field
+    %strong 譜面難易度(A, H, N)
+    %br/
+    = f.text_field :difficulty
+  %br/
+  .field
+    %strong レベル(1〜12)
+    %br/
+    = f.number_field :level
+  %br/
+  .field
+    %strong ノーツ数
+    %br/
+    = f.number_field :notes
+  %br/
+  .actions
+    = f.submit

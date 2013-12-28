@@ -1,0 +1,38 @@
+%h1 Musics
+%p
+  Music data for RPS
+%ul.nav.nav-pills
+  %li.active
+    %a{"data-toggle" => "tab", :href => "#SP"} Single Play
+  %li
+    %a{"data-toggle" => "tab", :href => "#DP"} Double Play
+.tab-content
+  - ["SP", "DP"].each do |playtype|
+    %div{:class => tab_class(playtype), :id => playtype}
+      %ul.nav.nav-tabs
+        - 12.downto(1).each do |level|
+          %li{ class: ('active' if level == 12) }
+            %a{"data-toggle" => "tab", :href => "##{playtype + level.to_s}"}
+              ☆#{level}
+      .tab-content
+        - 12.downto(1).each do |level|
+          .tab-pane{ id: playtype + level.to_s, class: ('active' if level == 12) }
+            %table.table.table-bordered.table-striped
+              %thead
+                %tr
+                  %th Difficulty
+                  %th Title
+                  %th Notes
+                  %th
+                  %th
+              %tbody
+                - @musics[playtype][level].each do |music|
+                  %tr
+                    - [:difficulty, :title, :notes].each do |symbol|
+                      %td
+                        = music[symbol]
+                    %td
+                      = link_to "編集", root_url + 'musics/edit/' + music.id.to_s
+                    %td
+                      = link_to "削除", root_url + 'musics/destroy/' + music.id.to_s
+            / End of table
