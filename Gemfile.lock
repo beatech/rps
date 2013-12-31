@@ -70,11 +70,14 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     minitest (4.7.5)
+    msgpack (0.5.8)
     multi_json (1.7.7)
     multi_xml (0.5.3)
     mysql2 (0.3.13)
     polyglot (0.3.3)
     rack (1.5.2)
+    rack-protection (1.5.1)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.0)
@@ -113,6 +116,19 @@ GEM
     sdoc (0.3.20)
       json (>= 1.1.3)
       rdoc (~> 3.10)
+    sinatra (1.4.4)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    slim (2.0.2)
+      temple (~> 0.6.6)
+      tilt (>= 1.3.3, < 2.1)
+    speed_gun (0.0.2)
+      msgpack (~> 0.5.0)
+      multi_json (~> 1.0)
+      sinatra (~> 1.4.0)
+      slim (~> 2.0)
+      useragent (~> 0.10)
     sprockets (2.10.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -122,6 +138,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    temple (0.6.7)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
@@ -140,6 +157,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    useragent (0.10.0)
 
 PLATFORMS
   ruby
@@ -158,6 +176,7 @@ DEPENDENCIES
   rspec
   rspec-rails
   sdoc
+  speed_gun
   therubyracer
   uglifier (>= 1.3.0)
   unicorn
