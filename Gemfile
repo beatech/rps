@@ -23,4 +23,4 @@ end
 gem 'unicorn'
 
 gem 'httparty'
-gem 'rack-runtime_growth_forecast'
+gem 'rack-runtime_growth_forecast', '~> 0.0.2'
